@@ -1,24 +1,38 @@
 # Webdiag
 
-TODO: Write a gem description
+Webdiag: blockdiag web interface
 
 ## Installation
 
-Add this line to your application's Gemfile:
+blockdiag instlled
 
-    gem 'webdiag'
+[http://blockdiag.com/ja/blockdiag/introduction.html](http://blockdiag.com/ja/blockdiag/introduction.html)
 
-And then execute:
+webdiag clone
 
-    $ bundle
+```sh
+$ git clone https://github.com/naoto/webdiag.git
+```
 
-Or install it yourself as:
+webdiag bundle
 
-    $ gem install webdiag
+```sh
+$ bundle install
+```
+
+webdiag runup
+
+```sh
+$ bundle exec ruby web.rb
+```
+
 
 ## Usage
 
-TODO: Write usage instructions here
+Options
+
+ * `-p`, `--port` to listen tcp port 
+ * `-b`, `--bind` to binding address
 
 ## Contributing
 
