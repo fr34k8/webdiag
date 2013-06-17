@@ -16,7 +16,7 @@ module Webdiag
     end
 
     def png
-      @png_path.gsub(Webdiag.public, '')
+      @png_path
     end
 
     def save_diag(diag)
@@ -28,8 +28,8 @@ module Webdiag
     end
 
     def save
-      `blockdiag -f /usr/share/fonts/japanese/TrueType/sazanami-gothic.ttf -o "#{Webdiag.public}/diag/#{@filename}.png" "#{@diag_path}"`
-      @png_path = "#{Webdiag.public}/diag/#{@filename}.png"
+      `blockdiag -f #{Webdiag.root}/.fonts/sawarabi-gothic-medium.ttf  -o "#{Webdiag.tempdir}/#{@filename}.png" "#{@diag_path}"`
+      @png_path = "#{@filename}.png"
     end
 
   end

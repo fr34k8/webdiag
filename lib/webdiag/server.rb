@@ -9,6 +9,7 @@ module Webdiag
     configure do
       Webdiag.tempdir = Dir.mktmpdir
       Webdiag.public = "#{settings.root}/public"
+      Webdiag.root = settings.root
     end
 
     get '/' do
@@ -19,6 +20,10 @@ module Webdiag
       @diag = params[:diag]
       @diagram = Diagram.create(@diag)
       erb :index
+    end
+
+    get %r{/(.+.png)} do
+      File.open("#{Webdiag.tempdir}/#{params[:captures].first}").read
     end
 
   end
