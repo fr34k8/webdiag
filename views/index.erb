@@ -1,0 +1,9 @@
+<form action="/create" method="post">
+      <textarea name="diag" cols="60" rows="30" class="small-12 columns"><%= @diag %></textarea>
+      <input type="submit" value="create" class="round small button"/>
+</form>
+<% if !@diagram.nil? %>
+<div>
+    <img src="<%= @diagram.png %>" />
+</div>
+<% end %>
