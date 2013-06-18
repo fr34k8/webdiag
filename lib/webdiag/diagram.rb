@@ -29,7 +29,7 @@ module Webdiag
     end
 
     def save
-      `#{execdiag}-f #{Webdiag.root}/.fonts/sawarabi-gothic-medium.ttf  -o "#{Webdiag.tempdir}/#{@filename}.png" "#{@diag_path}"`
+      `#{execdiag} -f #{Webdiag.root}/.fonts/sawarabi-gothic-medium.ttf  -o "#{Webdiag.tempdir}/#{@filename}.png" "#{@diag_path}"`
       @png_path = "#{@filename}.png"
     end
 
