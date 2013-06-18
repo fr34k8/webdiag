@@ -18,7 +18,8 @@ module Webdiag
 
     post '/create' do
       @diag = params[:diag]
-      @diagram = Diagram.create(@diag)
+      @diagtype = params[:diagtype]
+      @diagram = Diagram.create(@diagtype, @diag)
       erb :index
     end
 

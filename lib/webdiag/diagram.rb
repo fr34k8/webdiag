@@ -9,7 +9,8 @@ module Webdiag
       dialog
     end
 
-    def initialize(diag)
+    def initialize(diagtype, diag)
+      @diagtype = diagtype
       @filename = Time.now.to_i
       @diag_path = save_diag(diag)
       @png_path = ""
@@ -28,8 +29,23 @@ module Webdiag
     end
 
     def save
-      `blockdiag -f #{Webdiag.root}/.fonts/sawarabi-gothic-medium.ttf  -o "#{Webdiag.tempdir}/#{@filename}.png" "#{@diag_path}"`
+      `#{execdiag}-f #{Webdiag.root}/.fonts/sawarabi-gothic-medium.ttf  -o "#{Webdiag.tempdir}/#{@filename}.png" "#{@diag_path}"`
       @png_path = "#{@filename}.png"
+    end
+
+    def execdiag
+      case @diagtype
+      when 'blockdiag'
+        'blockdiag'
+      when 'seqdiag'
+        'seqdiag'
+      when 'actdiag'
+        'actdiag'
+      when 'nwdiag'
+        'nwdiag'
+      else
+        'blockdiag'
+      end
     end
 
   end

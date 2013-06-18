@@ -1,1 +1,4 @@
 blockdiag
+nwdiag
+seqdiag
+actdiag
