@@ -19,6 +19,7 @@ module Webdiag
     get '/' do
       @button = "create"
       @diagram = Diagram.new
+      @action = "create"
       erb :index
     end
 
@@ -37,7 +38,13 @@ module Webdiag
     get '/:id' do
       @diagram = Diagram.load params[:id]
       @button = "update"
+      @action = @diagram.id
       erb :index
+    end
+
+    post '/:id' do
+      diagram = Diagram.update(params[:diagtype], params[:diag], params[:id])
+      redirect "/#{diagram.id}"
     end
 
     get '/image/:id.png' do

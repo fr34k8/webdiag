@@ -18,6 +18,12 @@ module Webdiag
         diagram
       end
 
+      def update(diagtype, diag, id)
+        diagram = Diagram.new diagtype, diag, id
+        diagram.save
+        diagram
+      end
+
       def image(id)
         diagram = Diagram.load id
         diagram.build
