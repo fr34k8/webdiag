@@ -1,19 +1,32 @@
+<div class="row">
+  <ul class="breadcrumbs">
+    <li><a href="/list">List</a></li>
+    <li><a href="http://blockdiag.com/ja/blockdiag/">blockdiag</a></li>
+    <li><a href="http://blockdiag.com/ja/seqdiag/index.html">seqdiag</a></li>
+    <li><a href="http://blockdiag.com/ja/actdiag/index.html">actdiag</a></li>
+    <li><a href="http://blockdiag.com/ja/nwdiag/index.html">nwdiag</a></li>
+  </ul>
+</div>
 <form action="/create" method="post">
     <div class="row">
         <div class="large-3 small-3 columns">
             <select name="diagtype">
-                <option value="blockdiag" <%= "selected" if @diagtype == "blockdiag" %>>blockdiag</option>
-                <option value="seqdiag" <%= "selected" if @diagtype == "seqdiag" %>>seqdiag</option>
-                <option value="actdiag" <%= "selected" if @diagtype == "actdiag" %>>actdiag</option>
-                <option value="nwdiag" <%= "selected" if @diagtype == "nwdiag" %>>networkdiag</option>
+                <option value="blockdiag" <%= "selected" if @diagram.type == "blockdiag" %>>遷移図</option>
+                <option value="seqdiag" <%= "selected" if @diagram.type == "seqdiag" %>>シーケンス図</option>
+                <option value="actdiag" <%= "selected" if @diagram.type == "actdiag" %>>アクティビティ図</option>
+                <option value="nwdiag" <%= "selected" if @diagram.type == "nwdiag" %>>ネットワーク図</option>
             </select>
         </div>
     </div>
-    <textarea name="diag" cols="60" rows="30" placeholder="Diag{ A->B }" class="small-12 columns"><%= @diag %></textarea>
-    <input type="submit" value="create" class="round small button"/>
+    <textarea name="diag" cols="60" rows="30" placeholder="Diag{ A->B }" class="small-12 columns height30"><%= @diagram.diag %></textarea>
+    <input type="submit" value="<%= @button %>" class="round small button"/>
 </form>
 <% if !@diagram.nil? %>
 <div class="row">
-    <img src="<%= @diagram.png %>" />
+    <img src="/image/<%= @diagram.id %>.png" />
+</div>
+<div class="row">
+  <a href="/image/<%= @diagram.id %>.png" class="button tiny secondary">Download</a>
+  <a href="/<%= @diagram.id %>" class="button tiny secondary">Permlink</a>
 </div>
 <% end %>

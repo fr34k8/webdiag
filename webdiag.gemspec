@@ -19,5 +19,6 @@ Gem::Specification.new do |gem|
 
   gem.add_runtime_dependency 'sinatra'
   gem.add_runtime_dependency 'thin'
+  gem.add_runtime_dependency 'redis'
 
 end

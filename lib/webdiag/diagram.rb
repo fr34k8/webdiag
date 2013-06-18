@@ -1,52 +1,83 @@
+require 'json'
+
 module Webdiag
   class Diagram
 
-    attr_accessor :filename, :diag_path, :png_path
+    attr_reader :id, :type, :diag
 
-    def self.create(diagtype, diag)
-      dialog = Diagram.new diagtype, diag
-      dialog.save
-      dialog
+    class << self
+      def create(diagtype, diag)
+        diagram= Diagram.new diagtype, diag
+        diagram.save
+        diagram
+      end
+
+      def load(id)
+        diagram = Diagram.new nil, nil, id
+        diagram.read
+        diagram
+      end
+
+      def image(id)
+        diagram = Diagram.load id
+        diagram.build
+      end
+
+      def list
+        Webdiag.redis.keys "*"
+      end
     end
 
-    def initialize(diagtype, diag)
+    def initialize(diagtype = nil, diag = nil, id = nil)
+      @id = id || Time.now.to_i
       @diagtype = diagtype
-      @filename = Time.now.to_i
-      @diag_path = save_diag(diag)
-      @png_path = ""
+      @diag = diag
     end
 
-    def png
-      @png_path
-    end
-
-    def save_diag(diag)
-      path = "#{Webdiag.tempdir}/#{@filename}.diag"
-      fp = File.open(path, 'w+')
-      fp.puts diag
-      fp.close
-      path
+    def build
+      diag_file_path = diag_save
+      png_file_path = "#{Webdiag.tempdir}/#{@id}.png"
+      `#{execdiag} -f #{Webdiag.root}/.fonts/sawarabi-gothic-medium.ttf  -o "#{png_file_path}" "#{diag_file_path}"`
+      file_load png_file_path
     end
 
     def save
-      `#{execdiag} -f #{Webdiag.root}/.fonts/sawarabi-gothic-medium.ttf  -o "#{Webdiag.tempdir}/#{@filename}.png" "#{@diag_path}"`
-      @png_path = "#{@filename}.png"
+      Webdiag.redis.set @id, { type: @diagtype, diag: @diag}.to_json
     end
 
-    def execdiag
-      case @diagtype
-      when 'blockdiag'
-        'blockdiag'
-      when 'seqdiag'
-        'seqdiag'
-      when 'actdiag'
-        'actdiag'
-      when 'nwdiag'
-        'nwdiag'
-      else
-        'blockdiag'
-      end
+    def read
+      json = JSON.parse Webdiag.redis.get(@id)
+      @diagtype = json["type"]
+      @diag = json["diag"]
     end
+
+    private
+     def file_load id
+       File.open(id).read
+     end
+
+     def diag_save
+       file_path = "#{Webdiag.tempdir}/#{@id}.diag"
+       fp = File.open(file_path, 'w+')
+       fp.puts @diag
+       fp.close
+       file_path
+     end
+
+     def execdiag
+       case @diagtype
+       when 'blockdiag'
+         'blockdiag'
+       when 'seqdiag'
+         'seqdiag'
+       when 'actdiag'
+         'actdiag'
+       when 'nwdiag'
+         'nwdiag'
+       else
+         'blockdiag'
+       end
+     end
 
   end
 end
