@@ -18,7 +18,7 @@ module Webdiag
 
     get '/' do
       @button = "create"
-      @diaglist = Diagram.new
+      @diagram = Diagram.new
       erb :index
     end
 
