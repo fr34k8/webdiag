@@ -11,14 +11,14 @@
     <div class="row">
         <div class="large-3 small-3 columns">
             <select name="diagtype">
-                <option value="blockdiag" <%= "selected" if !@diagram.nil? && @diagram.type == "blockdiag" %>>遷移図</option>
-                <option value="seqdiag" <%= "selected" if !@diagram.nil? && @diagram.type == "seqdiag" %>>シーケンス図</option>
-                <option value="actdiag" <%= "selected" if !@diagram.nil? && @diagram.type == "actdiag" %>>アクティビティ図</option>
-                <option value="nwdiag" <%= "selected" if !@diagram.nil? && @diagram.type == "nwdiag" %>>ネットワーク図</option>
+                <option value="blockdiag" <%= "selected" if @diagram.type == "blockdiag" %>>遷移図</option>
+                <option value="seqdiag" <%= "selected" if @diagram.type == "seqdiag" %>>シーケンス図</option>
+                <option value="actdiag" <%= "selected" if @diagram.type == "actdiag" %>>アクティビティ図</option>
+                <option value="nwdiag" <%= "selected" if @diagram.type == "nwdiag" %>>ネットワーク図</option>
             </select>
         </div>
     </div>
-    <textarea name="diag" cols="60" rows="30" placeholder="Diag{ A->B }" class="small-12 columns height30"><%= @diagram.diag || "" %></textarea>
+    <textarea name="diag" cols="60" rows="30" placeholder="Diag{ A->B }" class="small-12 columns height30"><%= @diagram.diag %></textarea>
     <input type="submit" value="<%= @button %>" class="round small button"/>
 </form>
 <% if !@diagram.nil? %>
