@@ -4,7 +4,7 @@ module Webdiag
 
   class << self
 
-    attr_accessor :tempdir, :public, :root
+    attr_accessor :tempdir, :public, :root, :redis
 
     def start(options)
       Server.run!(Options.load(options))
