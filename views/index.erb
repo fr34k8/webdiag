@@ -1,10 +1,14 @@
 <form action="/create" method="post">
-    <select name="diagtype">
-        <option value="blockdiag">blockdiag</option>
-        <option value="seqdiag">seqdiag</option>
-        <option value="actdiag">actdiag</option>
-        <option value="nwdiag">networkdiag</option>
-    </select>
+    <div class="row">
+        <div class="large-3 small-3 columns">
+            <select name="diagtype">
+                <option value="blockdiag" <%= "selected" if @diagtype == "blockdiag" %>>blockdiag</option>
+                <option value="seqdiag" <%= "selected" if @diagtype == "seqdiag" %>>seqdiag</option>
+                <option value="actdiag" <%= "selected" if @diagtype == "actdiag" %>>actdiag</option>
+                <option value="nwdiag" <%= "selected" if @diagtype == "nwdiag" %>>networkdiag</option>
+            </select>
+        </div>
+    </div>
     <textarea name="diag" cols="60" rows="30" placeholder="Diag{ A->B }" class="small-12 columns"><%= @diag %></textarea>
     <input type="submit" value="create" class="round small button"/>
 </form>
