@@ -3,8 +3,8 @@ module Webdiag
 
     attr_accessor :filename, :diag_path, :png_path
 
-    def self.create(diag)
-      dialog = Diagram.new diag
+    def self.create(diagtype, diag)
+      dialog = Diagram.new diagtype, diag
       dialog.save
       dialog
     end
