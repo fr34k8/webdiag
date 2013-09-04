@@ -1,4 +1,5 @@
 require 'json'
+require 'open3'
 
 module Webdiag
   class Diagram
@@ -29,6 +30,11 @@ module Webdiag
         diagram.build
       end
 
+      def build_result(id)
+        f = File.open("#{Webdiag.tempdir}/#{id}.result", "r")
+        f.read
+      end
+
       def list
         Webdiag.redis.keys "*"
       end
@@ -43,8 +49,14 @@ module Webdiag
     def build
       diag_file_path = diag_save
       png_file_path = "#{Webdiag.tempdir}/#{@id}.png"
-      `#{execdiag} -f #{Webdiag.root}/.fonts/sawarabi-gothic-medium.ttf  -o "#{png_file_path}" "#{diag_file_path}"`
-      file_load png_file_path
+      build_result, status = Open3.capture2e("#{execdiag} -f #{Webdiag.root}/.fonts/sawarabi-gothic-medium.ttf  -o \"#{png_file_path}\" \"#{diag_file_path}\"")
+      build_result_save build_result
+      begin
+        file_load png_file_path
+      rescue
+        build_result_save $!
+        file_load "public/img/error.png" 
+      end
     end
 
     def save
@@ -66,6 +78,14 @@ module Webdiag
        file_path = "#{Webdiag.tempdir}/#{@id}.diag"
        fp = File.open(file_path, 'w+')
        fp.puts @diag
+       fp.close
+       file_path
+     end
+
+     def build_result_save build_result
+       file_path = "#{Webdiag.tempdir}/#{@id}.result"
+       fp = File.open(file_path, 'w+')
+       fp.puts build_result
        fp.close
        file_path
      end
