@@ -34,6 +34,15 @@ Options
  * `-p`, `--port` to listen tcp port 
  * `-b`, `--bind` to binding address
 
+## Heroku Deployment
+
+```sh
+$ git clone https://github.com/naoto/webdiag.git
+$ cd webdiag
+$ heroku create webdiag --stack cedar --buildpack git://github.com/naoto/heroku-buildpack-rubypython.git
+$ git push heroku master
+```
+
 ## Contributing
 
 1. Fork it
