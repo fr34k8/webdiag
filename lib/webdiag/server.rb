@@ -52,6 +52,11 @@ module Webdiag
       Diagram.image params[:id]
     end
 
+    get '/build_result/:id' do
+      headers 'Content-Type' => 'text/plain'
+      Diagram.build_result params[:id]
+    end
+
   end
 end
 
