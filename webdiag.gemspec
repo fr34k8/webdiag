@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = Webdiag::VERSION
   gem.authors       = ["Naoto SHINGAKI"]
   gem.email         = ["nao.sora+github@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{block diag WEB Interface}
+  gem.summary       = %q{block diag WEB Interface}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)
