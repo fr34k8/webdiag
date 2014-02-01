@@ -23,7 +23,11 @@
     </div>
     <textarea name="diag" cols="60" rows="30" placeholder="Diag{ A -> B }" class="small-12 columns height30"><%= @diagram.diag %></textarea>
     <input type="submit" value="<%= @button %>" class="round small button"/>
+    <% if @delete %>
+    <a href="/delete/<%= @action %>" class="button round small">delete</a>
+    <% end %>
 </form>
+
 <% if !@diagram.diag.nil? %>
 <div class="row">
     <img src="/image/<%= @diagram.id %>.png" id="diagram_image"/>
