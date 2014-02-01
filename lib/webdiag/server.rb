@@ -48,6 +48,11 @@ module Webdiag
       redirect "/#{diagram.id}"
     end
 
+    get '/delete/:id' do
+      Diagram.delete(params[:id])
+      redirect "/"
+    end
+
     get '/image/:id.png' do
       headers 'Content-Type' => 'image/png'
       Diagram.image params[:id]

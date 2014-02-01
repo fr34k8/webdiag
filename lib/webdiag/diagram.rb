@@ -38,6 +38,10 @@ module Webdiag
       def list
         Webdiag.redis.keys "*"
       end
+
+      def delete(id)
+        Webdiag.redis.del id
+      end
     end
 
     def initialize(diagtype = nil, diag = nil, id = nil)
