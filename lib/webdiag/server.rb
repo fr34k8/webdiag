@@ -39,6 +39,7 @@ module Webdiag
       @diagram = Diagram.load params[:id]
       @button = "update"
       @action = @diagram.id
+      @delete = true
       erb :index
     end
 
